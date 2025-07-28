@@ -26,6 +26,7 @@ qa_chain = RetrievalQA.from_chain_type(
     chain_type="stuff"
 )
 
+
 # Streamlit UI 구성
 st.set_page_config(page_title="전자공학과 AI 비서", page_icon="🤖")
 st.title("📘 전자공학과 학사 정보 챗봇")
