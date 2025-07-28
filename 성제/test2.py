@@ -15,7 +15,7 @@ claude_api_key = getpass.getpass("Claude API Key를 입력하세요: ")
 os.environ["ANTHROPIC_API_KEY"] = claude_api_key
 
 # 📁 2. PDF 로딩 (경북대 PDF 폴더 경로)
-folder_path = "C:/Users/KDT10/OneDrive/바탕 화면/경북대학교"
+folder_path = r"C:/_vscode/Project_13/성제/경북대학교"
 loader = PyPDFDirectoryLoader(folder_path)
 documents = loader.load()
 
@@ -45,6 +45,6 @@ rag_chain = (
 )
 
 # 🧪 8. 테스트 질문
-query = "배준현 교수님 이메일에 대해 알려줘"
+query = "경북대학교 교육목표에 대해 알려주라"
 response = rag_chain.invoke(query)
 print(f"\n📢 답변:\n{response.content}")
