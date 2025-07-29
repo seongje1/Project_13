@@ -26,7 +26,7 @@ for loader in loaders:
 print(f"📃 전체 문서 페이지 수: {len(docs)}")
 
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500, chunk_overlap=50,
+    chunk_size=700, chunk_overlap=100,
     separators=["\n\n", "\n", " ", ""]
 )
 chunks = splitter.split_documents(docs)
