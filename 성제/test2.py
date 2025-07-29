@@ -24,11 +24,14 @@ print(f"📄 불러온 PDF 문서 수: {len(documents)}개")
 
 # 📚 3. 청크 분할
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
+# chunk_size : 하나의 청크에 들어갈 토큰 or 단어 수 / chunk_overlap : 다음 토큰과의 중첩 토큰 or 단어 수
+# seporators = ["\n\n", "\n", " ", ""]
 chunks = text_splitter.split_documents(documents)
 print(f"🧩 생성된 청크 수: {len(chunks)}개")
 
 # 📌 4. 임베딩 모델 (한국어 HuggingFace 모델 사용)
 embedding_model = HuggingFaceEmbeddings(model_name="jhgan/ko-sroberta-multitask")
+# model_name 추천 list [BM-K/KoSimCSE-roberta,llm-grounded/ko-sentence-transformers-v1,jhgan/ko-sbert-nli] 
 
 # 🧠 5. 벡터 저장소 생성 (Chroma 사용)
 vectorstore = Chroma.from_documents(documents=chunks, embedding=embedding_model)
@@ -36,6 +39,7 @@ retriever = vectorstore.as_retriever()
 
 # 🤖 6. Claude 기반 LLM 설정
 llm = ChatAnthropic(model="claude-3-haiku-20240307")
+# model 추천 list ["claude-3-haiku-20240307", "claude-3.5-sonnet-20240620","claude-4-sonnet-20240229"]
 
 # 🔄 7. RAG 체인 구성
 rag_chain = (
