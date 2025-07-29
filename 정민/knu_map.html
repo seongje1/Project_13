@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0ab3644412c4f18e819a1cb1a6edff20 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0ab3644412c4f18e819a1cb1a6edff20" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0ab3644412c4f18e819a1cb1a6edff20 = L.map(
+                "map_0ab3644412c4f18e819a1cb1a6edff20",
+                {
+                    center: [35.8885, 128.6108],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 16,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e26c2962e0f85ff4c1b8255eb755d812 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e26c2962e0f85ff4c1b8255eb755d812.addTo(map_0ab3644412c4f18e819a1cb1a6edff20);
+        
+    
+            var marker_ce6f660bed28d70a1f3ade6114497312 = L.marker(
+                [35.8893, 128.6104],
+                {
+}
+            ).addTo(map_0ab3644412c4f18e819a1cb1a6edff20);
+        
+    
+            var icon_fad7c5f62528698a2e24d767a650b685 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_ce6f660bed28d70a1f3ade6114497312.bindTooltip(
+                `<div>
+                     도서관
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ce6f660bed28d70a1f3ade6114497312.setIcon(icon_fad7c5f62528698a2e24d767a650b685);
+            
+    
+            var marker_79958db953b70a2c1b4152a433407f56 = L.marker(
+                [35.8882, 128.6125],
+                {
+}
+            ).addTo(map_0ab3644412c4f18e819a1cb1a6edff20);
+        
+    
+            var icon_9323946495c52609dcf87601f032c79c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_79958db953b70a2c1b4152a433407f56.bindTooltip(
+                `<div>
+                     IT대학
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_79958db953b70a2c1b4152a433407f56.setIcon(icon_9323946495c52609dcf87601f032c79c);
+            
+    
+            var marker_46db2f84bac0fa22bc6d4b9c3a3fc15b = L.marker(
+                [35.8875, 128.6095],
+                {
+}
+            ).addTo(map_0ab3644412c4f18e819a1cb1a6edff20);
+        
+    
+            var icon_ad7f77d9b8bf6a11b5961f2c4f3f27e7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_46db2f84bac0fa22bc6d4b9c3a3fc15b.bindTooltip(
+                `<div>
+                     학생회관
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_46db2f84bac0fa22bc6d4b9c3a3fc15b.setIcon(icon_ad7f77d9b8bf6a11b5961f2c4f3f27e7);
+            
+    
+            var marker_10ec6adbd6048696c562a192518d5ac6 = L.marker(
+                [35.8868, 128.6082],
+                {
+}
+            ).addTo(map_0ab3644412c4f18e819a1cb1a6edff20);
+        
+    
+            var icon_6baeb1938f0c8d8c77145f739b17894a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_10ec6adbd6048696c562a192518d5ac6.bindTooltip(
+                `<div>
+                     공대 10호관
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_10ec6adbd6048696c562a192518d5ac6.setIcon(icon_6baeb1938f0c8d8c77145f739b17894a);
+            
+    
+            var marker_11723916b789fb4ff79eda47f43a911f = L.marker(
+                [35.8891, 128.6135],
+                {
+}
+            ).addTo(map_0ab3644412c4f18e819a1cb1a6edff20);
+        
+    
+            var icon_80d53a58c1d1c3a25b5c0067eabee1e0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_11723916b789fb4ff79eda47f43a911f.bindTooltip(
+                `<div>
+                     글로벌플라자
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_11723916b789fb4ff79eda47f43a911f.setIcon(icon_80d53a58c1d1c3a25b5c0067eabee1e0);
+            
+</script>
+</html>
