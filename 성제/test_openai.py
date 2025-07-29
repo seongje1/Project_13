@@ -69,7 +69,7 @@ while True:
         [rag_answer],  # candidate
         [gpt_answer],  # reference
         lang="ko",     # 한국어일 경우
-        model_type="klue/bert-base"  # 한국어 지원 모델
+        model_type="xlm-roberta-large"  # 한국어 지원 모델
     )
 
     print(f"\n📊 BERT-Score 유사도")
