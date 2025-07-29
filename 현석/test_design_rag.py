@@ -74,9 +74,9 @@ with st.sidebar:
 def create_rag_chain():
     loader = PyPDFLoader("data/경대 휴학,복학.pdf")
     pages = loader.load_and_split()
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
     docs = splitter.split_documents(pages)
-    embeddings = HuggingFaceEmbeddings(model_name="jhgan/ko-sbert-nli")
+    embeddings = HuggingFaceEmbeddings(model_name="jhgan/ko-sroberta-multitask")
     vectorstore = FAISS.from_documents(docs, embeddings)
     retriever = vectorstore.as_retriever()
 

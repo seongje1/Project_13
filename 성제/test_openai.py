@@ -11,15 +11,15 @@ from getpass import getpass
 # ✅ 1. OpenAI API 키 설정
 os.environ["OPENAI_API_KEY"] = getpass("🔐 OpenAI API 키를 입력하세요: ")
 
-# ✅ 2. 경로 설정
+# ✅ 2. PDF 경로 설정
 pdf_dir = r"C:\_vscode\Project_13\성제\경북대학교"
 
-# ✅ 3. 모든 PDF 파일 불러오기
+# ✅ 3. 모든 PDF 불러오기
 loaders = [PyPDFLoader(os.path.join(pdf_dir, f))
            for f in os.listdir(pdf_dir) if f.endswith(".pdf")]
-print(f"📄 불러온 PDF 파일 수: {len(loaders)}")
+print(f"📄 불러온 PDF 수: {len(loaders)}")
 
-# ✅ 4. 문서 로드 + 청크화
+# ✅ 4. 문서 로드 및 청크 분할
 docs = []
 for loader in loaders:
     docs.extend(loader.load())
@@ -49,11 +49,14 @@ rag_chain = RetrievalQA.from_chain_type(
 )
 gpt_direct = ChatOpenAI(model="gpt-3.5-turbo")
 
-# ✅ 7. 비교 루프 시작
+# ✅ 7. 평가 루프 시작
 while True:
-    query = input("\n💬 질문을 입력하세요 (종료하려면 'exit'): ")
+    print("\n💬 평가할 질문을 입력하세요 (종료하려면 'exit'):")
+    query = input("질문: ")
     if query.lower() == "exit":
         break
+
+    reference = input("📘 모범 답변 (Reference)을 입력하세요:\n")
 
     print("🤖 RAG 기반 응답 생성 중...")
     rag_answer = rag_chain.run(query)
@@ -63,16 +66,28 @@ while True:
 
     print("\n✅ [RAG 응답]:\n", rag_answer)
     print("\n✅ [GPT 단독 응답]:\n", gpt_answer)
+    print("\n📘 [모범 답변]:\n", reference)
 
-    # ✅ BERT-Score 계산
-    P, R, F1 = bert_score(
-        [rag_answer],  # candidate
-        [gpt_answer],  # reference
-        lang="ko",     # 한국어일 경우
-        model_type="xlm-roberta-large"  # 한국어 지원 모델
+    # ✅ BERT-Score 계산 (reference 기준)
+    P_rag, R_rag, F1_rag = bert_score(
+        [rag_answer], [reference],
+        lang="ko",
+        model_type="xlm-roberta-large"
+    )
+    P_gpt, R_gpt, F1_gpt = bert_score(
+        [gpt_answer], [reference],
+        lang="ko",
+        model_type="xlm-roberta-large"
     )
 
-    print(f"\n📊 BERT-Score 유사도")
-    print(f"Precision: {P.mean():.4f}")
-    print(f"Recall   : {R.mean():.4f}")
-    print(f"F1       : {F1.mean():.4f}")
+    # ✅ 비교 출력
+    print("\n📊 BERT-Score 결과 (기준: 모범 답변)")
+    print("🧠 일반 GPT 응답:")
+    print(f"  - Precision: {P_gpt.mean():.4f}")
+    print(f"  - Recall   : {R_gpt.mean():.4f}")
+    print(f"  - F1 Score : {F1_gpt.mean():.4f}")
+
+    print("\n🧠 RAG 기반 GPT 응답:")
+    print(f"  - Precision: {P_rag.mean():.4f}")
+    print(f"  - Recall   : {R_rag.mean():.4f}")
+    print(f"  - F1 Score : {F1_rag.mean():.4f}")

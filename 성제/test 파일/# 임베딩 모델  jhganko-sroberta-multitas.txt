@@ -1,0 +1,10 @@
+# 임베딩 모델 : "jhgan/ko-sroberta-multitask" / Claude 모델 : "claude-3-haiku-20240307" / BERT-Score 모델 : "xlm-roberta-large"
+Chunk_size : 700 / Chunk_overlap : 100 ==> F1-Score : 0.9167
+Chunk_size : 500 / Chunk_overlap : 100 ==> F1-Score : 0.92724
+Chunk_size : 300 / Chunk_overlap : 100 ==> F1-Score : 0.9202
+
+# 임베딩 모델 : "snunlp/KR-SBERT-V40K-klueNLI-augSTS" / Claude 모델 : "claude-3-haiku-20240307" / BERT-Score 모델 : "xlm-roberta-large"
+
+Chunk_size : 500 / Chunk_overlap : 100 ==> F1-Score : 0.90026
+
+
