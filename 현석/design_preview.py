@@ -1,16 +1,17 @@
 import streamlit as st
 import base64
 
-# 로고 base64 인코딩
+# 🔐 로고 base64 인코딩
 def load_logo_base64(path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
 logo_base64 = load_logo_base64("assets/knu_logo.png")
 
+# 🌐 페이지 설정
 st.set_page_config(page_title="📘 경북대 챗봇", layout="centered")
 
-# 전역 스타일
+# 🎨 전역 스타일
 st.markdown("""
     <style>
     body {
@@ -25,34 +26,31 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 📌 왼쪽 사이드바: 일정 + PDF 다운로드
+# 📌 사이드바: 학사일정 + PDF + 링크
 with st.sidebar:
-    st.image("assets/knu_logo.png", width=100)
+    st.image("assets/knu_logo2.png", width=200)
 
-    st.markdown("### 📅 학사일정")
+    st.markdown("###  학사일정")
     st.markdown("""
-    - 🗓️ 개강: **2025.09.01**  
-    - 🖋️ 수강신청: **08.12 ~ 08.14**  
-    - 📝 중간고사: **10.22 ~ 10.28**  
-    - 💳 등록금 납부: **08.25 ~ 08.28**
+    - 🗓️ 개강: **2024.09.02**  
+    - 🖋️ 수강신청: **08.20 ~ 08.24**  
+    - 📝 중간고사: **10.21 ~ 10.25**  
+    - 💳 등록금 납부: **08.10 ~ 08.14**
     """)
 
-    st.markdown("### 📎 문서 다운로드")
-
+    st.markdown("###  문서 다운로드")
     st.download_button(
         label="📄 등록금 납부 일정",
         data=open("data/2025학년도 2학기 등록금 납부 일정.pdf", "rb").read(),
         file_name="2025학년도_2학기_등록금_납부_일정.pdf",
         mime="application/pdf"
     )
-
     st.download_button(
         label="📄 강의평가",
         data=open("data/강의평가.pdf", "rb").read(),
         file_name="강의평가.pdf",
         mime="application/pdf"
     )
-
     st.download_button(
         label="📄 휴학 및 복학",
         data=open("data/경대 휴학,복학.pdf", "rb").read(),
@@ -60,7 +58,13 @@ with st.sidebar:
         mime="application/pdf"
     )
 
-# ✅ 상단 로고 + 타이틀
+    st.markdown("###  바로가기 링크")
+    st.markdown("- [ 경북대학교 홈페이지](https://www.knu.ac.kr)")
+    st.markdown("- [ 종합정보시스템](https://appfn.knu.ac.kr/login.knu?agentId=4)")
+    st.markdown("- [ 수강신청 페이지](https://sugang.knu.ac.kr)")
+    st.markdown("- [ 시간표 조회 시스템](https://knuin.knu.ac.kr/public/stddm/lectPlnInqr.knu)")
+
+# 🏫 상단 로고 + 타이틀
 st.markdown(f"""
     <div style='display:flex; flex-direction:row; align-items:center; 
                 justify-content:center; gap: 15px; margin-bottom: 32px;'>
@@ -127,8 +131,8 @@ frequent_questions = [
     "휴학은 어떻게 하나요?",
     "복학 신청은 어디서 하나요?",
     "수강신청 일정은 언제인가요?",
-    "장학금 신청 자격이 궁금해요.",
-    "성적 열람은 어디서 하나요?"
+    "성적 열람은 어디서 하나요?",
+    "학생증 발급은 어떻게 하나요?"
 ]
 cols = st.columns(len(frequent_questions))
 for idx, q in enumerate(frequent_questions):
@@ -139,3 +143,4 @@ for idx, q in enumerate(frequent_questions):
 # ✅ 사용자 입력
 if user_input := st.chat_input("질문을 입력하세요 (예: 휴학 신청은 어떻게 하나요?)"):
     st.session_state["messages"].append({"role": "user", "content": user_input})
+    st.rerun()
