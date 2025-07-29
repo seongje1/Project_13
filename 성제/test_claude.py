@@ -19,7 +19,7 @@ documents = loader.load()
 print(f"📄 불러온 PDF 문서 수: {len(documents)}개")
 
 # 📚 청크 분할
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
 chunks = text_splitter.split_documents(documents)
 print(f"🧩 생성된 청크 수: {len(chunks)}개")
 
