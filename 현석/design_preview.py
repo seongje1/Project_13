@@ -101,10 +101,6 @@ for i, msg in enumerate(st.session_state["messages"]):
                             border: 1px solid #e0e0e0;
                             box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
                             max-width: 90%; margin-bottom:15px;'>
-                  <div style='position:absolute; top:12px; left:-10px; 
-                              width:0; height:0; border-top:10px solid transparent;
-                              border-bottom:10px solid transparent;
-                              border-right:10px solid #ffffff;'></div>
                   {msg['content']}
                 </div>
             """, unsafe_allow_html=True)
@@ -117,14 +113,11 @@ for i, msg in enumerate(st.session_state["messages"]):
                             padding:15px 20px; border-radius:20px;
                             box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
                             max-width: 85%;'>
-                  <div style='position:absolute; top:12px; right:-10px; 
-                              width:0; height:0; border-top:10px solid transparent;
-                              border-bottom:10px solid transparent;
-                              border-left:10px solid #b71c1c;'></div>
                   {msg['content']}
                 </div>
             </div>
         """, unsafe_allow_html=True)
+
 
 # ✅ 자주 묻는 질문 버튼
 frequent_questions = [
