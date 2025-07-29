@@ -3,7 +3,7 @@ import streamlit as st
 from dotenv import load_dotenv
 
 from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
@@ -50,7 +50,7 @@ def build_combined_rag(pdf_dir):
     docs = splitter.split_documents(all_docs)
 
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    vectorstore = Chroma.from_documents(docs, embedding=embeddings)
+    vectorstore = FAISS.from_documents(docs, embedding=embeddings)
     retriever = vectorstore.as_retriever()
 
     llm = ChatAnthropic(model="claude-3-haiku-20240307")
