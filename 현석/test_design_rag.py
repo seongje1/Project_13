@@ -2,6 +2,7 @@ import streamlit as st
 import base64
 import random
 import os
+import glob
 
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
@@ -56,13 +57,12 @@ with st.sidebar:
     - 📝 중간고사: **10.22 ~ 10.28**  
     - 💳 등록금 납부: **08.25 ~ 08.28**
     """)
-    st.markdown("###  문서 다운로드")
-    st.download_button("📄 등록금 납부 일정", open("data/2025학년도 2학기 등록금 납부 일정.pdf", "rb").read(),
-                       file_name="2025학년도_2학기_등록금_납부_일정.pdf", mime="application/pdf")
-    st.download_button("📄 강의평가", open("data/강의평가.pdf", "rb").read(),
-                       file_name="강의평가.pdf", mime="application/pdf")
-    st.download_button("📄 휴학 및 복학", open("data/경대 휴학,복학.pdf", "rb").read(),
-                       file_name="휴학및복학.pdf", mime="application/pdf")
+    with st.expander(" 문서 다운로드"):
+        for pdf_path in glob.glob("data/*.pdf"):
+            with open(pdf_path, "rb") as f:
+                filename = os.path.basename(pdf_path)
+                st.download_button(f"📄 {filename}", f.read(), file_name=filename, mime="application/pdf")
+
     st.markdown("###  바로가기 링크")
     st.markdown("- [경북대학교 홈페이지](https://www.knu.ac.kr)")
     st.markdown("- [종합정보시스템](https://appfn.knu.ac.kr/login.knu?agentId=4)")
@@ -72,11 +72,17 @@ with st.sidebar:
 # 🧠 RAG 체인 생성
 @st.cache_resource
 def create_rag_chain():
-    loader = PyPDFLoader("data/경대 휴학,복학.pdf")
-    pages = loader.load_and_split()
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-    docs = splitter.split_documents(pages)
-    embeddings = HuggingFaceEmbeddings(model_name="jhgan/ko-sbert-nli")
+    # 📂 data 폴더의 모든 PDF 파일 불러오기
+    pdf_paths = glob.glob("data/*.pdf")
+    all_pages = []
+    for path in pdf_paths:
+        loader = PyPDFLoader(path)
+        pages = loader.load_and_split()
+        all_pages.extend(pages)
+
+    splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
+    docs = splitter.split_documents(all_pages)
+    embeddings = HuggingFaceEmbeddings(model_name="jhgan/ko-sroberta-multitask")
     vectorstore = FAISS.from_documents(docs, embeddings)
     retriever = vectorstore.as_retriever()
 
