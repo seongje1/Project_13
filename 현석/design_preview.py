@@ -1,5 +1,6 @@
 import streamlit as st
 import base64
+import random  # 🔸 랜덤 마스코트 선택용
 
 # 🔐 로고 base64 인코딩
 def load_logo_base64(path):
@@ -26,7 +27,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 📌 사이드바: 학사일정 + PDF + 링크
+# 📌 사이드바
 with st.sidebar:
     st.image("assets/knu_logo2.png", width=200)
 
@@ -86,10 +87,17 @@ for i, msg in enumerate(st.session_state["messages"]):
     if msg["role"] == "assistant":
         if i == 0:
             mascot_img = "assets/mascot_hello.png"
-        elif i == len(st.session_state["messages"]) - 1:
-            mascot_img = "assets/mascot_alarm.png"
         else:
-            mascot_img = "assets/mascot.png"
+            prev_user_msg = st.session_state["messages"][i - 1]["content"] if i > 0 else ""
+            graduation_keywords = ["졸업", "졸업요건", "졸업논문", "졸업학점", "학위"]
+            if any(keyword in prev_user_msg for keyword in graduation_keywords):
+                mascot_img = "assets/mascot_graduate.png"
+            else:
+                mascot_img = random.choice([
+                    "assets/mascot.png",
+                    "assets/mascot_love.png",
+                    "assets/mascot_alarm.png"
+                ])
 
         col1, col2 = st.columns([1, 8])
         with col1:
@@ -117,7 +125,6 @@ for i, msg in enumerate(st.session_state["messages"]):
                 </div>
             </div>
         """, unsafe_allow_html=True)
-
 
 # ✅ 자주 묻는 질문 버튼
 frequent_questions = [
