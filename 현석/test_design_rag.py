@@ -74,6 +74,8 @@ def create_rag_chain(uploaded_file=None, use_only_uploaded=False):
 
 # ✅ 페이지 설정
 st.set_page_config(page_title="📘 경북대 챗봇", layout="centered")
+
+# ✅ 스타일
 st.markdown("""
     <style>
     body {
@@ -83,6 +85,31 @@ st.markdown("""
         padding-left: 5rem;
         padding-right: 5rem;
         padding-top: 2rem;
+    }
+
+    /* 사이드바 기본 배경 및 텍스트 */
+    section[data-testid="stSidebar"] {
+        background-color: #b71c1c;
+        color: white;
+    }
+    section[data-testid="stSidebar"] * {
+        color: white !important;
+    }
+
+    /* 흰 배경 요소 내부의 텍스트는 검정색으로 덮어쓰기 */
+    section[data-testid="stSidebar"] .stDownloadButton button,
+    section[data-testid="stSidebar"] .stDownloadButton button *,
+    section[data-testid="stSidebar"] .stFileUploader,
+    section[data-testid="stSidebar"] .stFileUploader *,
+    section[data-testid="stSidebar"] input {
+        color: black !important;
+    }
+
+    /* ➕ 문서 업로드(선택), 문서 사용 방식 라벨만 흰색 유지 */
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] .stRadio > div > label {
+        color: white !important;
+        font-weight: 500;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -139,8 +166,8 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ✅ 메시지 출력 (마스코트 고정)
-for i, msg in enumerate(st.session_state["messages"]):
+# ✅ 메시지 출력
+for msg in st.session_state["messages"]:
     if msg["role"] == "assistant":
         mascot_img = msg.get("mascot", "assets/mascot.png")
         col1, col2 = st.columns([1, 8])
@@ -180,17 +207,6 @@ cols = st.columns(len(frequent_questions))
 for idx, q in enumerate(frequent_questions):
     if cols[idx].button(q):
         st.session_state["messages"].append({"role": "user", "content": q})
-        st.markdown(f"""
-            <div style='text-align:right; margin-bottom:15px;'>
-                <div style='background:#b71c1c; color:white;
-                            padding:15px 20px; border-radius:20px;
-                            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
-                            display:inline-block; max-width:85%;'>
-                    {q}
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
-
         with st.spinner("답변 생성 중..."):
             response = st.session_state["rag_chain"].invoke(q)
             mascot_img = (
@@ -203,16 +219,6 @@ for idx, q in enumerate(frequent_questions):
 # ✅ 사용자 입력
 if user_input := st.chat_input("질문을 입력하세요 (예: 수강신청 일정은 언제인가요?)"):
     st.session_state["messages"].append({"role": "user", "content": user_input})
-    st.markdown(f"""
-        <div style='text-align:right; margin-bottom:15px;'>
-            <div style='background:#b71c1c; color:white;
-                        padding:15px 20px; border-radius:20px;
-                        box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
-                        display:inline-block; max-width:85%;'>
-              {user_input}
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
     with st.spinner("답변 생성 중..."):
         response = st.session_state["rag_chain"].invoke(user_input)
         mascot_img = (
