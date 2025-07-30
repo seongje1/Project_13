@@ -73,17 +73,11 @@ with st.sidebar:
 # 🧠 RAG 체인 생성
 @st.cache_resource
 def create_rag_chain():
-    # 📂 data 폴더의 모든 PDF 파일 불러오기
-    pdf_paths = glob.glob("data/*.pdf")
-    all_pages = []
-    for path in pdf_paths:
-        loader = PyPDFLoader(path)
-        pages = loader.load_and_split()
-        all_pages.extend(pages)
-
-    splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
-    docs = splitter.split_documents(all_pages)
-    embeddings = HuggingFaceEmbeddings(model_name="jhgan/ko-sroberta-multitask")
+    loader = PyPDFLoader("data/경대 휴학,복학.pdf")
+    pages = loader.load_and_split()
+    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+    docs = splitter.split_documents(pages)
+    embeddings = HuggingFaceEmbeddings(model_name="jhgan/ko-sbert-nli")
     vectorstore = FAISS.from_documents(docs, embeddings)
     retriever = vectorstore.as_retriever()
 
