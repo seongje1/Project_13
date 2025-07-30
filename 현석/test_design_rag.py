@@ -57,17 +57,18 @@ with st.sidebar:
     - 📝 중간고사: **10.22 ~ 10.28**  
     - 💳 등록금 납부: **08.25 ~ 08.28**
     """)
-    with st.expander(" 문서 다운로드"):
-        for pdf_path in glob.glob("data/*.pdf"):
-            with open(pdf_path, "rb") as f:
-                filename = os.path.basename(pdf_path)
-                st.download_button(f"📄 {filename}", f.read(), file_name=filename, mime="application/pdf")
 
     st.markdown("###  바로가기 링크")
     st.markdown("- [경북대학교 홈페이지](https://www.knu.ac.kr)")
     st.markdown("- [종합정보시스템](https://appfn.knu.ac.kr/login.knu?agentId=4)")
     st.markdown("- [수강신청 페이지](https://sugang.knu.ac.kr)")
     st.markdown("- [시간표 조회 시스템](https://knuin.knu.ac.kr/public/stddm/lectPlnInqr.knu)")
+
+    with st.expander("📄 문서 다운로드"):
+        for pdf_path in glob.glob("data/*.pdf"):
+            with open(pdf_path, "rb") as f:
+                filename = os.path.basename(pdf_path)
+                st.download_button(f"📄 {filename}", f.read(), file_name=filename, mime="application/pdf")
 
 # 🧠 RAG 체인 생성
 @st.cache_resource
